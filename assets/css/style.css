@@ -14,7 +14,7 @@ body,
 
 body {
     font-family: sans-serif;
-    background-color: #fff;
+    background-color: #90a4ae;
 }
 
 .wrapper {
@@ -46,7 +46,6 @@ header {
     content: " ";
     display: block;
     width: 100%;
-    background: #fff;
     height: 2px;
 }
 
