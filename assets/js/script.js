@@ -6,16 +6,12 @@ var specialChar='@%+!#$%^&*()_-,<.>/?[{]}|:;';
 var pwBtn=document.querySelector("#generate");
 var pwDisplay=document.querySelector("#password");
 
-pwBtn.addEventListener('click',pwGen);
+pwBtn.addEventListener('click',passwordGenerator);
 
-function pwGen() {
-    chPwLen();
-    var pwHasNum=confirm('Should password have numbers?');
-    var pwHasLower=confirm('Should password have lower case letters?');
-    var pwHasUpper=confirm('Should password have upper case letters?');
-    var pwHasSpec=confirm('Should password have special characters?');
-    
-    
+function passwordGenerator() {
+  var len=chPwLen();
+  var spec=specFunc();
+  passGen(len,spec);
 };
 
 function chPwLen() {
@@ -26,12 +22,27 @@ function chPwLen() {
     }
     return pwLen;
 };
-
 function specFunc() {
     var specs='';
+    var pwHasNum=confirm('Should password have numbers?');
+    var pwHasLower=confirm('Should password have lower case letters?');
+    var pwHasUpper=confirm('Should password have upper case letters?');
+    var pwHasSpec=confirm('Should password have special characters?');
+    
     if (pwHasNum) {specs+=numChar;};
-    if (pwHasUpper) {specs+=upperChar;};
-    if (pwHasSec) {specs+=specialChar;};
     if (pwHasLower) {specs+=lowerChar;};
+    if (pwHasUpper) {specs+=upperChar;};
+    if (pwHasSpec) {specs+=specialChar;};
+
     return specs;
+};
+
+function passGen(len, spec) {
+    var password='';
+    for (let i = 0; i < len; i++) {
+        password+=spec[Math.floor(Math.random()*spec.length)]
+    };
+    if(spec){
+        pwDisplay.value=password;
+    }
 }
