@@ -43,5 +43,5 @@ function passGen(len, spec) {
     for (let i = 0; i < len; i++) {
         password+=spec[Math.floor(Math.random()*spec.length)]
     };
-    pwDisplay.value = spec ? password : "";
+    pwDisplay.value = password;
 }
