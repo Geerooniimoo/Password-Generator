@@ -15,7 +15,7 @@ body,
 
 body {
     font-family: sans-serif;
-    background-color: #90a4ae;
+    background-color: lightgray;
 }
 
 .wrapper {
@@ -28,19 +28,19 @@ header {
     text-align: center;
     padding: 20px;
     padding-top: 0;
-    color: hsl(206,17%,28%);
+    color: teal;
 }
 
 .card {
-    background-color: #fff;
-    border-radius: 5px;
+    background-color: teal;
+    border-radius: 20px;
     border-width: 1px;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px 0px;
-    color: hsl(206,17%,28%);
+    color: white;
     font-style: 18px;
     margin: 0 auto;
     max-width: 800px;
     padding: 30px 40px;
+    border: 4px solid black;
 }
 
 .card-header::after {
@@ -73,8 +73,8 @@ header {
 }
 
 .btn {
-    border: none;
     background-color: hsl(360,91%,36%);
+    border: 3px solid black;
     border-radius: 25px;
     box-shadow: rgba(0,0,0,0.1) 0px 1px 6px 0px rgba(0,0,0.0.2) 0px 1px 1px; 
     color: hsl(0,0%,100%);
@@ -100,7 +100,6 @@ button[disabled] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    border: none;
     display: block;
     width: 100%;
     padding-top: 15px;
@@ -108,7 +107,7 @@ button[disabled] {
     padding-right: 15px;
     padding-bottom: 85px;
     font-size: 1.2rem;
-    text-align: center;
+    text-align: left;
     margin-top: 10px;
     border: 2px dashed #c0c7cf;
     border-radius: 6px;
