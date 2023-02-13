@@ -73,8 +73,6 @@ const genPass = async () => {
         output += temp[Math.floor(Math.random() * temp.length)]
     };
 
-    console.log(range.value, temp);
-
     generate.style.display = 'none';
     hanSav.style.display = 'flex';
     header.innerHTML = 'Click home to go back.<br><br>Click the save button to keep the new password.'
