@@ -39,10 +39,9 @@ header {
     color: white;
     font-style: 18px;
     margin: 0 auto;
-    max-width: 800px;
-    padding: 30px 40px;
+    max-width: 550px;
+    padding: 10px;
     border: 4px solid black;
-    max-width: 700px;
 }
 
 .card-header::after {
@@ -61,8 +60,9 @@ header {
     text-align: left;
 }
 
-.card-body h2 {
+#header {
     width: 100%;
+    font-size: 1.2rem;
 }
 
 .card-body hr{
@@ -70,14 +70,13 @@ header {
 }
 
 .card-body h4 {
-    margin: 5px auto;
-    width: 50%;
+    margin: 5px;
 }
 
 .card-body h5 {
-    margin: 5px auto;
-    /* margin-top: 5px; */
+    margin: 5px;
     width: 50%;
+    text-align: left;
 }
 
 .card-footer {
@@ -123,27 +122,74 @@ button[disabled] {
 }
 
 #password {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    display: block;
-    width: 100%;
-    padding-top: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-bottom: 85px;
-    font-size: 1.2rem;
-    text-align: left;
-    margin-top: 10px;
-    border: 2px dashed #c0c7cf;
-    border-radius: 6px;
-    resize: none;
-    overflow: hidden;
+    margin: auto;
+    font-size: 1.5rem;
 }
 
-#meter {
+#savedPasswords {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border: 4px solid black;
+    max-width: 550px;
+    margin: 20px auto;
+    border-radius: 8px;
+    background: #4caf50;
+}
+
+#savedPasswords>h2 {
+    width: 100%;
+    text-align: center;
+}
+
+#savedPasswords button {
+    background: teal;
+    color: white;
+    margin: 5px;
+    border-radius: 8px;
+    border: 4px solid #000;
+    padding: 5px;
+}
+
+#clearPassword {
     width: 50%;
-    margin: 0 auto;
+    font-size: 1.2rem;
+    background: yellow;
+    border-radius: 8px 0 0 8px;
+}
+
+#savePassword {
+    background: hsl(150, 91%, 36%);
+    border-radius: 0 8px 8px 0;
+    font-size: 1.2rem;
+    color: white;
+    height: 30px;
+    width: 50%;
+    opacity: 1;
+}
+
+#hanSav {
+    display: none;
+    margin-top: 20px;
+}
+
+#params {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 25px;
+}
+
+#params>div {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#params>h1 {
+    margin: auto;
+    overflow-wrap: anywhere;
 }
 
 #meter span {
@@ -155,6 +201,7 @@ button[disabled] {
 #counter {
     width: 100%;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     /* padding-left: 5px; */
 }
@@ -167,12 +214,17 @@ button[disabled] {
     /* outline: none; */
     opacity: .7;
     transition: opacity .2s;
-    background: #d3d3d3;
+    /* background: #d3d3d3; */
+    background: yellow;
     cursor: pointer;
 }
 
 #range:hover {
     opacity: 1;
+}
+
+#generate {
+    margin-bottom: 0;
 }
 
 @media (max-width: 690px) {

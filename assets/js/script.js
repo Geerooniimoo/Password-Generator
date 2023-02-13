@@ -1,91 +1,79 @@
-
-document.querySelector('.card').innerHTML += `
-<section style="display:none;margin-top:20px;" id="hanSav"><button style="background:yellow;width:50%;" onclick="clearPass()">Clear</button><button style="background:hsl(360,91%,36%);width:50%;height:30px;color:white;" onclick="delPass()">Delete</button></section>
-`;
-
-document.querySelector('.card-header').innerHTML += `
-<section style="display:flex;flex-wrap:wrap;justify-content:space-around;margin-top:20px;" id="history"></section>
-`;
-
 let store;
-let history = document.getElementById('history');
 
-const renderStore = () => {
-    if (store.length) {
-        history.innerHTML = '<h2 style="width:100%;text-align:center;">Saved Passowrds</h2>';
-        store.forEach(obj => {
-            Object.keys(obj).forEach(key => {
-                history.innerHTML += `
-                <button style="background:teal;color:white;margin:5px;border-radius:8px;border: 4px solid black;padding:5px;" onclick="hanPass()">${key}</button>`
-            });
-        });
-    } else {
-        history.innerHTML = '';
+const runInit = async () => {
+    store = await localStorage.passwords ? JSON.parse(localStorage.passwords) : {};
+
+    main.innerHTML = init;
+
+    if (Object.keys(store).length) {
+        // <section id="savedPasswords"></section>
+        savedPasswords.style.opacity = 1;
+        savedPasswords.innerHTML = '<h2>Saved Passowrds</h2>';
+        Object.keys(store).forEach(key => {
+            savedPasswords.innerHTML += `
+                <button onclick="hanPass()">${key}</button>`
+        })
+    } else { 
+        savedPasswords.innerHTML = ''; 
+        savedPasswords.style.opacity = 0;
     };
 };
+runInit();
 
-const clearPass = () => {
-    password.innerText = '';
-    document.querySelector('.card h2').innerText = 'Generate a Password';
-    document.getElementById('hanSav').style.display = 'none';
-    generate.style = 'display:block;margin:16px auto auto;';
+const savPass = () => {
+    let name = prompt('Name of the password, for what is it going to be used?').toUpperCase();
+    if (name == null) return;
+    if (!name) savPass();
+
+    if (!Object.keys(store).includes(name)) store[name] = '';
+    store[name] = password.innerText;
+    localStorage.passwords = JSON.stringify(store);
+    runInit();
 };
+
+const clipPass = () => {
+    navigator.clipboard.writeText(store[header.innerText]);
+    runInit();
+}
 
 const delPass = () => {
-    let name = document.querySelector('.card h2').innerText;
-    store = store.filter(obj => Object.keys(obj) != name);
+    let name = header.innerText;
+    delete store[name];
     localStorage.passwords = JSON.stringify(store);
-    clearPass();
-    renderStore();
+    runInit();
 };
 
-const hanPass = () => this.addEventListener('click', ({target:{innerText:name}}) => {
-    password.innerText = (store.filter(obj=>obj[name])[0])[name];
-    document.querySelector('.card h2').innerText = name;
-    generate.style.display = 'none';
+const hanPass = () => this.addEventListener('click', ({ target: { innerText: name } }) => {
+    header.innerText = name;
     hanSav.style.display = 'flex';
-});
+    hanSav.innerHTML = htmlSavBtn;
+    generate.style.display = 'none';
+    header.style = 'text-align:center';
+    params.innerHTML = htmlSavBtnParams;
+}, {once:true});
 
+const hanShow = () => {
+    hanSav.innerHTML = htmlShowBtn;
+    params.innerHTML = `<h1 id="password">${store[header.innerText]}</h1>`;
+};
 
-(async () => {
-    let hanSav = document.getElementById('hanSav');
+const genPass = async () => {
 
-    store = localStorage.passwords ?
-        await eval(localStorage.passwords) : [];
+    let temp = '';
+    if (num.checked) temp += '0123456789';
+    if (lower.checked) temp += 'abcdefghijklmnopqrstuvwxyz';
+    if (upper.checked) temp += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if (spec.checked) temp += '@%+!#$%^&*()_->/?[{]}|:;';
 
-    renderStore();
-
-    const passGen = () => {
-        let len = prompt('From 8 - 128, how long should password be?');
-        if (len < 8 || len > 128) return alert('Password length does not match criteria.  Please try again.')
-
-        let num = confirm('Should password have numbers?');
-        let lower = confirm('Should password have lower case letters?');
-        let upper = confirm('Should password have upper case letters?');
-        let spec = confirm('Should password have special characters?');
-
-        let temp = '';
-        if (num) temp += '0123456789';
-        if (lower) temp += 'abcdefghijklmnopqrstuvwxyz';
-        if (upper) temp += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        if (spec) temp += '@%+!#$%^&*()_-<>/?[{]}|:;';
-
-        let output = '';
-        for (let i = 0; i < len; i++) {
-            output += temp[Math.floor(Math.random() * temp.length)]
-        };
-
-        let name = prompt('Password\'s name?').toUpperCase();
-        document.querySelector('.card h2').innerText = name;
-        generate.style.display = 'none';
-        hanSav.style.display = 'flex';
-        password.innerText = output;
-        
-        store.push({ [name]: output });
-
-        localStorage.passwords = JSON.stringify(store);
-        renderStore();
+    let output = '';
+    for (let i = 0; i < range.value; i++) {
+        output += temp[Math.floor(Math.random() * temp.length)]
     };
 
-    generate.addEventListener('click', passGen);
-})();    
+    console.log(range.value, temp);
+
+    generate.style.display = 'none';
+    hanSav.style.display = 'flex';
+    header.innerHTML = 'Click home to go back.<br><br>Click the save button to keep the new password.'
+    params.innerHTML = `<h1 id="password">${output}</h1>`;
+};    
