@@ -12,18 +12,21 @@ const runInit = async () => {
         Object.keys(store).forEach(key => {
             savedPasswords.innerHTML += `
                 <button onclick="hanPass()">${key}</button>`
-        })
-    } else { 
-        savedPasswords.innerHTML = ''; 
+        });
+        savedPasswords.scrollIntoView({ behavior: "smooth", alignToTop: true });
+    } else {
+        savedPasswords.innerHTML = '';
         savedPasswords.style.opacity = 0;
     };
 };
 runInit();
 
 const savPass = () => {
-    let name = prompt('Name of the password, for what is it going to be used?').toUpperCase();
+    let name = prompt('Name of the password, for what is it going to be used?');
     if (name == null) return;
     if (!name) savPass();
+
+    name = name.toUpperCase();
 
     if (!Object.keys(store).includes(name)) store[name] = '';
     store[name] = password.innerText;
@@ -50,7 +53,7 @@ const hanPass = () => this.addEventListener('click', ({ target: { innerText: nam
     generate.style.display = 'none';
     header.style = 'text-align:center';
     params.innerHTML = htmlSavBtnParams;
-}, {once:true});
+}, { once: true });
 
 const hanShow = () => {
     hanSav.innerHTML = htmlShowBtn;
