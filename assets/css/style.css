@@ -16,7 +16,7 @@ body,
 
 body {
     font-family: sans-serif;
-    background-color: lightgray;
+    background-color: #3a618d;
 }
 
 .wrapper {
@@ -30,6 +30,16 @@ header {
     padding: 20px;
     padding-top: 0;
     color: teal;
+}
+
+header h1 {
+    color: #4491c4;
+    -webkit-text-stroke: black 1.2px;
+    text-shadow: 5px 5px 0px #6e8a8e;
+    letter-spacing: -0.2rem;
+    font-family: fantasy;
+    font-size: 4rem;
+    filter: drop-shadow(8px 5px 5px black);
 }
 
 .card {
@@ -134,7 +144,7 @@ button[disabled] {
     max-width: 550px;
     margin: 20px auto;
     border-radius: 8px;
-    background: #4caf50;
+    background: #4491c4;
 }
 
 #savedPasswords>h2 {
